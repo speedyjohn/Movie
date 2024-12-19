@@ -4,6 +4,7 @@ public static partial class ESM
 {
     public const string LanguagePage = "~/esm/Modules/Administration/Language/LanguagePage.js";
     public const string LoginPage = "~/esm/Modules/Membership/Account/Login/LoginPage.js";
+    public const string MoviePage = "~/esm/Modules/MovieDB/Movie/MoviePage.js";
     public const string RolePage = "~/esm/Modules/Administration/Role/RolePage.js";
     public const string ScriptInit = "~/esm/Modules/Common/ScriptInit.js";
     public const string SignUpPage = "~/esm/Modules/Membership/Account/SignUp/SignUpPage.js";
@@ -53,6 +54,14 @@ public static partial class ESM
                 {
                     public const string SignUpPage = "~/esm/Modules/Membership/Account/SignUp/SignUpPage.js";
                 }
+            }
+        }
+
+        public static partial class MovieDB
+        {
+            public static partial class Movie
+            {
+                public const string MoviePage = "~/esm/Modules/MovieDB/Movie/MoviePage.js";
             }
         }
     }
