@@ -6,6 +6,7 @@ using Serenity.Web;
 using System;
 using System.Data;
 using System.Globalization;
+using Movie.Modules.MovieDB.Movie;
 using MyRow = Movie.MovieDB.MovieRow;
 
 namespace Movie.MovieDB.Endpoints;
@@ -27,7 +28,7 @@ public class MovieEndpoint : ServiceEndpoint
     {
         return handler.Update(uow, request);
     }
- 
+
     [HttpPost, AuthorizeDelete(typeof(MyRow))]
     public DeleteResponse Delete(IUnitOfWork uow, DeleteRequest request,
         [FromServices] IMovieDeleteHandler handler)
@@ -43,14 +44,14 @@ public class MovieEndpoint : ServiceEndpoint
     }
 
     [HttpPost, AuthorizeList(typeof(MyRow))]
-    public ListResponse<MyRow> List(IDbConnection connection, ListRequest request,
+    public ListResponse<MyRow> List(IDbConnection connection, MovieListRequest request,
         [FromServices] IMovieListHandler handler)
     {
         return handler.List(connection, request);
     }
 
     [HttpPost, AuthorizeList(typeof(MyRow))]
-    public FileContentResult ListExcel(IDbConnection connection, ListRequest request,
+    public FileContentResult ListExcel(IDbConnection connection, MovieListRequest request,
         [FromServices] IMovieListHandler handler,
         [FromServices] IExcelExporter exporter)
     {

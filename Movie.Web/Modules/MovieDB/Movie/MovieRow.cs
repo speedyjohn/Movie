@@ -3,6 +3,7 @@ using Serenity.Data;
 using Serenity.Data.Mapping;
 using System;
 using System.ComponentModel;
+using Movie.Modules.MovieDB.Movie;
 
 namespace Movie.MovieDB;
 
@@ -13,6 +14,7 @@ namespace Movie.MovieDB;
 [ServiceLookupPermission("Administration:General")]
 public sealed class MovieRow : Row<MovieRow.RowFields>, IIdRow, INameRow
 {
+    const string jGenre = nameof(jGenre);
     [DisplayName("Movie Id"), Identity, IdProperty]
     public int? MovieId { get => fields.MovieId[this]; set => fields.MovieId[this] = value; }
 
@@ -34,6 +36,13 @@ public sealed class MovieRow : Row<MovieRow.RowFields>, IIdRow, INameRow
     [DisplayName("Runtime(minutes)")]
     public int? Runtime { get => fields.Runtime[this]; set => fields.Runtime[this] = value; }
 
+    [DisplayName("Kind"), NotNull]
+    public MovieKind? Kind { get => fields.Kind[this]; set => fields.Kind[this] = value; }
+
+    [DisplayName("Genres"), LookupEditor(typeof(GenreRow), Multiple = true), NotMapped]
+    [LinkingSetRelation(typeof(MovieGenresRow), nameof(MovieGenresRow.MovieId), nameof(MovieGenresRow.GenreId))]
+    public List<int> GenreList { get => fields.GenreList[this]; set => fields.GenreList[this] = value; }
+
     public class RowFields : RowFieldsBase
     {
         public Int32Field MovieId;
@@ -43,6 +52,7 @@ public sealed class MovieRow : Row<MovieRow.RowFields>, IIdRow, INameRow
         public Int32Field Year;
         public DateTimeField ReleaseDate;
         public Int32Field Runtime;
-
+        public EnumField<MovieKind> Kind;
+        public ListField<int> GenreList;
     }
 }
